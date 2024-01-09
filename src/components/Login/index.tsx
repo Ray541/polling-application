@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   FormWrapper,
   LoginStyle,
@@ -9,9 +9,28 @@ import Form from '../Form/Form';
 import LoginImage from '../../assets/login-img.png';
 
 const Login = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('first');
+
+    console.log(formData.email);
+    console.log(formData.password);
+
+    setFormData({
+      email: '',
+      password: '',
+    });
   };
 
   return (
@@ -22,13 +41,13 @@ const Login = () => {
         </LoginImagediv>
         <FormWrapper>
           <Form
-          formId="loginForm"
+            formId="loginForm"
             title="Sign In"
             formInputArray={[
               {
-                label: 'Username',
-                name: 'username',
-                type: 'text',
+                label: 'Email',
+                name: 'email',
+                type: 'email',
               },
               {
                 label: 'Password',
@@ -37,16 +56,13 @@ const Login = () => {
               },
             ]}
             submitButton="Sign In"
-            onSubmit={handleFormSubmit}
-            forgotPassword={
-              {
-                link:
-                {
-                  label: "Forgot Password !!",
-                  to: "/Forgot"
-                }
-              }
-            }
+            onChange={handleInputChange}
+            forgotPassword={{
+              link: {
+                label: 'Forgot Password !!',
+                to: '/Forgot',
+              },
+            }}
             redirect={{
               redirectLabel: "Don't have an Account?",
               link: {
@@ -54,6 +70,7 @@ const Login = () => {
                 to: '/SignUp',
               },
             }}
+            onSubmit={handleFormSubmit}
           />
         </FormWrapper>
       </LoginStyle>

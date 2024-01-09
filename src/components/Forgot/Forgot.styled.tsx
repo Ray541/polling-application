@@ -6,6 +6,7 @@ export const StyledForgotSection = styled.section`
   display: grid;
   place-content:center;
   background-color: #001124;
+  outline: unset;
 
   #forgotPasswordForm
   {

@@ -1,11 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Form from '../Form/Form';
 import { StyledForgotSection } from './Forgot.styled';
 
 const Forgot = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    newPassword: '',
+  });
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('first');
+
+    console.log(formData.email);
+    console.log(formData.newPassword);
+
+    setFormData({
+      email: '',
+      newPassword: '',
+    });
   };
 
   return (
@@ -21,12 +40,12 @@ const Forgot = () => {
           },
           {
             label: 'New Password',
-            name: 'newpassword',
+            name: 'newassword',
             type: 'text',
           },
         ]}
         submitButton="Reset Password"
-        onSubmit={handleFormSubmit}
+        onChange={handlePasswordChange}
         forgotPassword={null}
         redirect={{
           redirectLabel: 'Have an Acount ?',
@@ -35,6 +54,7 @@ const Forgot = () => {
             to: '/',
           },
         }}
+        onSubmit={handleFormSubmit}
       />
     </StyledForgotSection>
   );

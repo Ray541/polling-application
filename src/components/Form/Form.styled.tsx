@@ -88,6 +88,7 @@ export const StyledForgot = styled(Link)`
   color: white;
   cursor: pointer;
   transition: color 0.2s ease;
+  outline: unset;
 
   &:hover,
   &:focus {
