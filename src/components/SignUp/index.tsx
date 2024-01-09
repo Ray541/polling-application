@@ -1,19 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   FormWrapper,
   SignupStyle,
   SignupImagediv,
   SignupImg,
 } from './Signup.styled';
+import { useSignupStore } from './signupStore';
 import Form from '../Form/Form';
 import SignupImage from '../../assets/signup-img.png';
 
 const SignUp = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-  });
+  const { formData, setFormData, resetFormData } = useSignupStore(); //Zustand Login Store
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -28,11 +25,7 @@ const SignUp = () => {
     console.log(formData.email);
     console.log(formData.password);
 
-    setFormData({
-      username: '',
-      email: '',
-      password: '',
-    });
+    resetFormData();
   };
 
   return (
@@ -49,16 +42,19 @@ const SignUp = () => {
               label: 'Username',
               name: 'username',
               type: 'text',
+              value: formData.username,
             },
             {
               label: 'Email',
               name: 'email',
               type: 'email',
+              value: formData.email,
             },
             {
               label: 'Password',
               name: 'password',
               type: 'password',
+              value: formData.password,
             },
           ]}
           submitButton="Sign Up"

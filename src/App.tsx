@@ -9,6 +9,7 @@ function App() {
     <>
       <Router>
         <Routes>
+          <Route path='*' Component={Login}/>
           <Route path="/" Component={Login} />
           <Route path="/Forgot" Component={Forgot} />
           <Route path="/SignUp" Component={SignUp} />

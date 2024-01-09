@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Form from '../Form/Form';
+import { useForgotPassStore } from './forgotPassStore';
 import { StyledForgotSection } from './Forgot.styled';
 
-const Forgot = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    newPassword: '',
-  });
+const ForgotPassword = () => {
+  
+  const {formData, setFormData, resetFormData} = useForgotPassStore();
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -15,16 +14,13 @@ const Forgot = () => {
     });
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleForgotPassFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     console.log(formData.email);
     console.log(formData.newPassword);
 
-    setFormData({
-      email: '',
-      newPassword: '',
-    });
+    resetFormData();
   };
 
   return (
@@ -37,11 +33,13 @@ const Forgot = () => {
             label: 'Email',
             name: 'email',
             type: 'email',
+            value: formData.email,
           },
           {
             label: 'New Password',
-            name: 'newassword',
-            type: 'text',
+            name: 'newPassword',
+            type: 'password',
+            value: formData.newPassword,
           },
         ]}
         submitButton="Reset Password"
@@ -54,10 +52,10 @@ const Forgot = () => {
             to: '/',
           },
         }}
-        onSubmit={handleFormSubmit}
+        onSubmit={handleForgotPassFormSubmit}
       />
     </StyledForgotSection>
   );
 };
 
-export default Forgot;
+export default ForgotPassword;

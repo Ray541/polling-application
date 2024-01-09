@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   FormWrapper,
   LoginStyle,
   LoginImagediv,
   LoginImg,
 } from './Login.styled';
+import { useLoginStore } from './loginStore'; //Import Zustand Login Store
 import Form from '../Form/Form';
 import LoginImage from '../../assets/login-img.png';
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+  const { formData, setFormData, resetFormData } = useLoginStore(); //Zustand Login Store
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -27,10 +25,7 @@ const Login = () => {
     console.log(formData.email);
     console.log(formData.password);
 
-    setFormData({
-      email: '',
-      password: '',
-    });
+    resetFormData();
   };
 
   return (
@@ -48,11 +43,13 @@ const Login = () => {
                 label: 'Email',
                 name: 'email',
                 type: 'email',
+                value: formData.email,
               },
               {
                 label: 'Password',
                 name: 'password',
                 type: 'password',
+                value: formData.password,
               },
             ]}
             submitButton="Sign In"

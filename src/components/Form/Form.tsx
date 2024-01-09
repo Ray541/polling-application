@@ -19,6 +19,7 @@ interface FormProps {
     label: string;
     name: string;
     type: string;
+    value: string;
   }>;
   submitButton: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -52,10 +53,10 @@ const Form: React.FC<FormProps> = ({
     <>
       <StyledForm id={formId}>
         <StyledFormTitle>{title}</StyledFormTitle>
-        {formInputArray.map(({ label, name, type }, index) => (
+        {formInputArray.map(({ label, name, type, value }, index) => (
           <StyledControl key={index}>
             <StyledLabel htmlFor={name}>{label}</StyledLabel>
-            <StyledInput id={name} type={type} name={name} onChange={onChange}/>
+            <StyledInput id={name} type={type} value={value} name={name} onChange={onChange}/>
           </StyledControl>
         ))}
         {forgotPassword && (
