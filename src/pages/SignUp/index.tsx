@@ -17,6 +17,7 @@ import {
 } from './Signup.styled';
 import styled from 'styled-components';
 import SignUpImage from '../../assets/signup-img.png';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../supabase/supabaseClient';
 
 /**Validation Schema
@@ -37,6 +38,8 @@ const validationSchema = yup.object().shape({
 });
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   return (
     <SignupStyle>
       <SignupImagediv>
@@ -54,6 +57,7 @@ const Signup = () => {
             console.log(error);
           } else {
             alert('Email Verification Link is sent to the email you entered.');
+            navigate("/");
           }
           resetForm();
         }}

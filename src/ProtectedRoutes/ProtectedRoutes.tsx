@@ -1,20 +1,19 @@
-// import { useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { supabase } from '../supabase/supabaseClient';
 
 interface ProtectedRouteProps {
- children: React.ReactNode;
+  children: React.ReactNode;
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
- const location = useLocation();
- const session = supabase.auth.session();
+  const location = useLocation();
 
- if (!session) {
-  return <Navigate to="/" state={{ from: location }} />;
- }
+  const session = sessionStorage.getItem('token');
 
- return <>{children}</>;
+  if (!session) {
+    return <Navigate to="/" state={{ from: location }} />;
+  } else {
+    return <>{children}</>;
+  }
 };
 
 export default ProtectedRoute;

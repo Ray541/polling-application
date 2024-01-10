@@ -13,6 +13,7 @@ const Dashboard = () => {
     if (error) {
       alert(error);
     } else {
+      sessionStorage.removeItem('token');
       navigate('/');
     }
   };

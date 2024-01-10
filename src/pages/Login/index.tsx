@@ -1,7 +1,6 @@
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import * as yup from 'yup';
-import { useNavigate } from 'react-router-dom';
 import {
   LoginStyle,
   LoginImagediv,
@@ -20,6 +19,7 @@ import {
 import styled from 'styled-components';
 import LoginImage from '../../assets/login-img.png';
 import { supabase } from '../../supabase/supabaseClient';
+import { useNavigate } from 'react-router-dom';
 
 /**Validation Schema
  * Email -> Required, Invalid Mail
@@ -58,7 +58,7 @@ const LoginForm = () => {
             if (error) {
               throw error;
             } else {
-              
+              sessionStorage.setItem('token', data.session.access_token);
               navigate('/Dashboard');
               console.log(data);
             }
