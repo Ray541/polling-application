@@ -1,18 +1,37 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Login, Signup, Dashboard } from './pages';
-import Forgot from './pages/Forgot';
+import { Login, Signup, Dashboard, ForgotPassword, Home, Profile } from './pages';
 import ProtectedRoute from './ProtectedRoutes/ProtectedRoutes';
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
   return (
     <>
       <Router>
+        <Navbar />
         <Routes>
-          <Route path="/" Component={Login} />
-          <Route path="/Forgot" Component={Forgot} />
+          <Route path='/' Component={Home}/>
+        </Routes>
+        <Routes>
+          <Route path="/Login" Component={Login} />
           <Route path="/Signup" Component={Signup} />
-          <Route path="/Dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> {/**Protected Route */}
+          <Route path="/Forgot" Component={ForgotPassword} />
+          <Route
+            path="/Dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/Profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/Signup" Component={Signup} />
         </Routes>
       </Router>

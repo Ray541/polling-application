@@ -120,7 +120,7 @@ const Signup = () => {
               </StyledInputDiv>
               <StyledRedirect>
                 <StyledRedirectLabel>Have an Account?</StyledRedirectLabel>
-                <StyledRedirectLink to="/">Sign In</StyledRedirectLink>
+                <StyledRedirectLink to="/Login">Sign In</StyledRedirectLink>
               </StyledRedirect>
               <StyledFormButton type="submit">Sign Up</StyledFormButton>
             </StyledForm>

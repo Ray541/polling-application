@@ -15,7 +15,7 @@ const Dashboard = () => {
     } else {
       localStorage.removeItem('token');
       // sessionStorage.removeItem('token');
-      navigate('/');
+      navigate('/Login');
     }
   };
 
