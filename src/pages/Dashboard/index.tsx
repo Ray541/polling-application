@@ -13,7 +13,8 @@ const Dashboard = () => {
     if (error) {
       alert(error);
     } else {
-      sessionStorage.removeItem('token');
+      localStorage.removeItem('token');
+      // sessionStorage.removeItem('token');
       navigate('/');
     }
   };

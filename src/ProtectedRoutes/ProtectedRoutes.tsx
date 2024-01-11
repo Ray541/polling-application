@@ -7,7 +7,8 @@ interface ProtectedRouteProps {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const location = useLocation();
 
-  const session = sessionStorage.getItem('token');
+  const session = localStorage.getItem('token');
+//   const session = sessionStorage.getItem('token');
 
   if (!session) {
     return <Navigate to="/" state={{ from: location }} />;

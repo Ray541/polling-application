@@ -58,7 +58,8 @@ const LoginForm = () => {
             if (error) {
               throw error;
             } else {
-              sessionStorage.setItem('token', data.session.access_token);
+              localStorage.setItem('token', data.session.access_token);
+              // sessionStorage.setItem('token', data.session.access_token);
               navigate('/Dashboard');
               console.log(data);
             }
