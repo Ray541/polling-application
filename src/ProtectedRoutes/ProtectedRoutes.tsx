@@ -10,7 +10,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 //   const session = sessionStorage.getItem('token');
 
   if (!session) {
-    return <Navigate to="/Login" />;
+    return <Navigate to="/" />;
   } else {
     return <>{children}</>;
   }
