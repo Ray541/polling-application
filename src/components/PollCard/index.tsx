@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { supabase } from '../../supabase/supabaseClient';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardBody, CardTitle } from 'reactstrap';
+import { supabase } from '../../supabase/supabaseClient';
 import styled from 'styled-components';
+import Button from '../Button/Button';
 import {
   StyledCardBodyTop,
   StyledPollBadge,
@@ -22,25 +24,25 @@ interface Poll {
 
 interface CardProps {
   data: Poll[];
-  onClick: (poll: Poll) => void;
 }
 
-const PollCard: React.FC<CardProps> = ({ data, onClick }) => {
-  const [userEmail, setUserEmail] = useState('');
+const PollCard: React.FC<CardProps> = ({ data }) => {
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchSession = async () => {
-      const { data, error } = await supabase.auth.getSession();
-      if (error || !data.session?.user || !data.session.user.email) return;
-      setUserEmail(data.session.user.email);
-    };
-    fetchSession();
-  }, [userEmail]);
+  const handleClickedVote = (poll: any) => {
+    console.log('Clicked Vote');
+    navigate(`/Voting/${poll.poll_id}`);
+  };
+
+  const handleClickedViewResult = (poll: any) => {
+    console.log('Clicked view Result');
+    navigate(`/PollResult/${poll.poll_id}`);
+  };
 
   return (
     <>
       {data.map((poll, index) => (
-        <StyledCard key={index} onClick={onClick}>
+        <StyledCard key={index}>
           <CardBody>
             <StyledCardBodyTop>
               <StyledPollBadge>Poll Question</StyledPollBadge>
@@ -61,6 +63,11 @@ const PollCard: React.FC<CardProps> = ({ data, onClick }) => {
               </p>
             </StyledCardBodyBotttom>
           </CardBody>
+          <Button label="Vote" onClick={() => handleClickedVote(poll)} />{' '}
+          <Button
+            label="View Result"
+            onClick={() => handleClickedViewResult(poll)}
+          />
         </StyledCard>
       ))}
     </>

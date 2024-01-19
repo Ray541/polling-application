@@ -19,6 +19,7 @@ const PollResult = () => {
 
   const [pollData, setPollData] = useState<PollData | null>(null);
 
+  /**Fetch the Poll details form the polls table from supabase */
   useEffect(() => {
     const fetchPoll = async () => {
       const { data, error } = await supabase
@@ -36,6 +37,17 @@ const PollResult = () => {
     fetchPoll();
   }, [pollId]);
 
+  const fetchUserId = async () => {
+    const { data: sessionData, error: sessionError } =
+      await supabase.auth.getSession();
+    if (sessionError || !sessionData?.session?.user?.id) {
+      return null;
+    } else {
+      return sessionData.session.user.id;
+    }
+  };
+  fetchUserId();
+  
   return (
     <>
       <section>
@@ -47,7 +59,6 @@ const PollResult = () => {
             <span key={index}> {option.option_text} </span>
           ))}
         </p>
-
         <p>Poll Created At: {pollData?.created_at}</p>
       </section>
     </>

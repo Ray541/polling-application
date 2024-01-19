@@ -1,16 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
+  Navbar,
   Login,
   Signup,
   Dashboard,
   ForgotPassword,
+  Voting,
   PollResult,
   Profile,
   Feeds,
 } from './pages';
-import Navbar from './components/Navbar/Navbar';
-import Footer from './components/Footer/Footer';
+// import Footer from './components/Footer/Footer';
 import ProtectedRoute from './ProtectedRoutes/ProtectedRoutes';
 
 function App() {
@@ -31,9 +32,17 @@ function App() {
             }
           />
           <Route
+            path="/Voting/:pollId"
+            element={
+              <ProtectedRoute>
+                <Voting />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/PollResult/:pollId"
             element={
-              <ProtectedRoute skipLoginCheck={true}>
+              <ProtectedRoute>
                 <PollResult />
               </ProtectedRoute>
             }
@@ -56,7 +65,7 @@ function App() {
           />
           <Route path="/*" Component={Login} />
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </Router>
     </>
   );
