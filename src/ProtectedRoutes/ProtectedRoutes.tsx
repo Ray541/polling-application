@@ -1,16 +1,19 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
+  skipLoginCheck?: boolean;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+  children,
+  skipLoginCheck = false,
+}) => {
   const session = localStorage.getItem('token');
-//   const session = sessionStorage.getItem('token');
+  const location = useLocation();
 
-  if (!session) {
-    return <Navigate to="/" />;
+  if (!skipLoginCheck && !session) {
+    return <Navigate to="/" state={{ from: location }} />;
   } else {
     return <>{children}</>;
   }

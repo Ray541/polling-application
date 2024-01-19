@@ -29,15 +29,17 @@ export const StyledModalHeader = styled.div`
   justify-content: space-between;
   gap: 10px;
   padding: 0 30px;
+  @media (width >= 320px) and (width <= 425px) {
+    padding: 10px;
+  }
 `;
 
 export const StyledModalTitle = styled.div`
-  font-size: 30px;
-  font-weight: 900;
+  font-size: 27px;
   color: #0088ff;
 
   @media (width >= 320px) and (width <= 425px) {
-    font-size: 25px;
+    font-size: 23px;
   }
 `;
 
@@ -47,22 +49,26 @@ export const StyledModalBody = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 30px;
+
+  @media (width >= 320px) and (width <= 425px) {
+    padding: 0;
+  }
 `;
 
 export const CloseModal = styled.button`
   cursor: pointer;
   padding: 5px 7px;
-  background-color: transparent;
+  color: #dadada;
+  background-color: #4b5563;
   font-size: 15px;
-  letter-spacing: 0.7px;
-  font-weight: 900;
+  letter-spacing: 1px;
+  font-weight: 600;
   border-radius: 5px;
-  border: 1px solid #141414;
   transition: all 0.2s ease;
 
   &:hover,
   &:focus {
-    color: #dadada;
+    transform: translateY(-2px);
     background-color: #141414;
   }
 `;
@@ -87,8 +93,7 @@ export const StyledInputDiv = styled.div`
 `;
 
 export const StyledLabel = styled.label`
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 15px;
   letter-spacing: 0.5px;
   margin-bottom: 5px;
 `;
