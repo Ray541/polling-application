@@ -16,8 +16,15 @@ export const StyledPollBadge = styled.span`
   padding: 5px;
   border-radius: 5px;
   font-size: 11px;
+  border: 1px solid transparent;
   letter-spacing: 0.3px;
   color: #0088ff;
+  transition: all 0.1s ease;
+
+  &:hover {
+    background-color: #0088ff;
+    color: #141414;
+  }
 `;
 
 export const StyledCardBodyBotttom = styled.div`

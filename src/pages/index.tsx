@@ -6,7 +6,7 @@ import ForgotPassword from './Forgot';
 import Profile from './Profile';
 import PollResult from './PollResult';
 import Feeds from './Feeds';
-import Voting from './Voting/Voting';
+import Voting from './Voting';
 
 export {
   Navbar,

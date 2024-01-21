@@ -11,7 +11,8 @@ const Navbar = () => {
   const [showProfile, setShowProfile] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
-  const [userEmail, setUserEmail] = useState('');
+  const [userEmail, setUserEmail] = useState<string | undefined>('');
+  const [userName, setUserName] = useState<string | undefined>('');
 
   /**@param _event,session
    * @returns event performed by the user in this case Sign Out
@@ -19,9 +20,25 @@ const Navbar = () => {
    */
   useEffect(() => {
     supabase.auth.onAuthStateChange((_event, session) => {
-      setUserEmail(session?.user.email || '');
+      if (session && session.user) {
+        setUserEmail(session.user.email);
+      }
     });
-  }, []);
+    const fetchUsers = async () => {
+      const { data: userData, error: userDataError } = await supabase
+        .from('users')
+        .select('*');
+      if (userData) {
+        const user = userData.find((user) => user.email === userEmail);
+        if (user) {
+          setUserName(user.username);
+        }
+      } else {
+        console.log(userDataError);
+      }
+    };
+    fetchUsers();
+  });
 
   const showProfileDropDown = () => {
     setShowProfile(true);
@@ -70,6 +87,8 @@ const Navbar = () => {
     } else {
       localStorage.removeItem('token');
       navigate('/');
+      setUserEmail('');
+      setUserName('');
     }
     setShowProfile(false);
     setShowMobileMenu(false);
@@ -116,7 +135,13 @@ const Navbar = () => {
                 <div className="ml-4 flex items-center md:ml-6">
                   <div className="relative ml-3">
                     <div className="flex items-center gap-2">
-                      <span className="text-white text-sm">{userEmail}</span>
+                      <div
+                        className="flex flex-col"
+                        style={{ alignItems: 'end' }}
+                      >
+                        <span className="text-white text-sm">{userEmail}</span>
+                        <span className="text-white text-sm">{userName}</span>
+                      </div>
                       <button
                         type="button"
                         className="relative flex max-w-xs p-1 items-center rounded-full focus:outline-none focus:ring-1 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -255,7 +280,7 @@ const Navbar = () => {
                   </div>
                   <div className="ml-3">
                     <div className="text-base font-medium leading-none text-white">
-                      Username but not inserted the username in supabase
+                      {userName}
                     </div>
                     <div className="text-sm font-medium leading-none text-gray-400">
                       {userEmail}

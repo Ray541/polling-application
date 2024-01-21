@@ -4,6 +4,7 @@ import CreatePoll from '../CreatePoll';
 import PollCard from '../../components/PollCard';
 import { supabase } from '../../supabase/supabaseClient';
 import { StyledPollList } from './Dashboard.style';
+
 interface Poll {
   poll_id: string;
   question: string;
