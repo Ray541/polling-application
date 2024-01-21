@@ -1,10 +1,18 @@
 import styled from 'styled-components';
 
-export const StyledDashboard = styled.section`
-    width: 100%
-    height: 100%;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+export const StyledPollList = styled.section`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  @media screen and (max-width: 600px) {
+    table {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+    }
+   }
 `;

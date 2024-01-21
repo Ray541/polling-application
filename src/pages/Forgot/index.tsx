@@ -32,7 +32,7 @@ const validationSchema = yup.object().shape({
     .min(6, 'At least 6 Characters'),
 });
 
-const LoginForm = () => {
+const ForgotPassword = () => {
   // const navigate = useNavigate();
 
   return (
@@ -96,7 +96,7 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default ForgotPassword;
 
 const StyledForm = styled(Form)`
   display: flex;

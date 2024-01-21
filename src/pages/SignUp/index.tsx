@@ -26,7 +26,7 @@ import { supabase } from '../../supabase/supabaseClient';
  */
 
 const validationSchema = yup.object().shape({
-  fullname: yup.string().required('Fullname is a Required field'),
+  username: yup.string().required('Fullname is a Required field'),
   email: yup
     .string()
     .required('Email is a Required field')
@@ -46,7 +46,7 @@ const Signup = () => {
         <SignupImg src={SignUpImage} alt="" />
       </SignupImagediv>
       <Formik
-        initialValues={{ fullname: '', email: '', password: '' }}
+        initialValues={{ username: '', email: '', password: '' }}
         validationSchema={validationSchema}
         onSubmit={async (values, { resetForm }) => {
           const { error } = await supabase.auth.signUp({
@@ -56,8 +56,16 @@ const Signup = () => {
           if (error) {
             console.log(error);
           } else {
+            const { error } = await supabase.from('users').insert({
+              username: values.username,
+              email: values.email,
+              password_hash: values.password,
+            });
+            if (error) {
+              alert(error);
+            }
             alert('Email Verification Link is sent to the email you entered.');
-            navigate("/");
+            navigate('/');
           }
           resetForm();
         }}
@@ -74,18 +82,18 @@ const Signup = () => {
             <StyledForm onSubmit={handleSubmit}>
               <StyledFormTitle>Sign Up</StyledFormTitle>
               <StyledInputDiv>
-                <StyledLabel htmlFor="fullname">Fullname</StyledLabel>
+                <StyledLabel htmlFor="username">Username</StyledLabel>
                 <StyledField
-                  id="fullname"
+                  id="username"
                   autoComplete="off"
                   type="text"
-                  name="fullname"
-                  value={values.fullname}
+                  name="username"
+                  value={values.username}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
-                {touched.fullname && errors.fullname && (
-                  <StyledErrorMessage>{errors.fullname}</StyledErrorMessage>
+                {touched.username && errors.username && (
+                  <StyledErrorMessage>{errors.username}</StyledErrorMessage>
                 )}
               </StyledInputDiv>
               <StyledInputDiv>

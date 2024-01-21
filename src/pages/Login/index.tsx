@@ -43,7 +43,7 @@ const LoginForm = () => {
   return (
     <LoginStyle>
       <LoginImagediv>
-        <LoginImg src={LoginImage} alt="" />
+        <LoginImg src={LoginImage} alt="Login In" />
       </LoginImagediv>
       <Formik
         initialValues={{ email: '', password: '' }}
