@@ -2,30 +2,56 @@ import { useParams } from 'react-router-dom';
 import { supabase } from '../../supabase/supabaseClient';
 import { useEffect, useState } from 'react';
 
+interface PollData {
+  poll_id: string;
+  question: string;
+  options: {
+    option_id: number;
+    poll_id: number;
+    option_text: string;
+  }[];
+  creator_id: string;
+  created_at: string;
+}
+
 const PollResult = () => {
   const { pollId } = useParams();
 
-  const [pollData, setPollData] = useState({});
+  const [pollData, setPollData] = useState<PollData | null>(null);
 
   useEffect(() => {
     const fetchPoll = async () => {
       const { data, error } = await supabase
         .from('polls')
-        .select('*')
+        .select('*, options (*)')
         .eq('poll_id', pollId);
-        
-        if(error)
-        {
-          console.log(error);
-        } else {
-          setPollData(data[0]);
-        }
+
+      if (error) {
+        console.log(error);
+      } else {
+        setPollData(data[0]);
+      }
     };
 
     fetchPoll();
   }, [pollId]);
 
-  return <div>Poll Result for Poll ID: {pollId}</div>;
+  return (
+    <>
+      <section>
+        <p>Poll Result for Poll ID: {pollData?.poll_id}</p>
+        <p>Poll Question: {pollData?.question}</p>
+        <p>
+          Option:
+          {pollData?.options?.map((option, index) => (
+            <span key={index}> {option.option_text} </span>
+          ))}
+        </p>
+
+        <p>Poll Created At: {pollData?.created_at}</p>
+      </section>
+    </>
+  );
 };
 
 export default PollResult;
