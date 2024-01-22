@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { supabase } from '../../supabase/supabaseClient';
 import { useEffect, useState } from 'react';
-
+import { StyledPollResult, StyledPollDetails } from './PollResult.styled';
 interface PollData {
   poll_id: string;
   question: string;
@@ -38,18 +38,19 @@ const PollResult = () => {
 
   return (
     <>
-      <section>
+      <StyledPollResult>
+        <StyledPollDetails>
         <p>Poll Result for Poll ID: {pollData?.poll_id}</p>
         <p>Poll Question: {pollData?.question}</p>
         <p>
           Option:
           {pollData?.options?.map((option, index) => (
             <span key={index}> {option.option_text} </span>
-          ))}
+            ))}
         </p>
-
         <p>Poll Created At: {pollData?.created_at}</p>
-      </section>
+            </StyledPollDetails>
+      </StyledPollResult>
     </>
   );
 };
