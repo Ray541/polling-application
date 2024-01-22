@@ -94,6 +94,7 @@ const Poll = () => {
             Cookies.set(userVotingStatus, 'true');
             setFinalVoted(`true`);
             setHasVoted(true);
+            // @ts-ignore
             setVotedOption(data[0].options.option_text);
           } else {
             Cookies.set(userVotingStatus, 'false');
