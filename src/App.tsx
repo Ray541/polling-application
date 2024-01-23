@@ -19,7 +19,7 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" Component={Login} />
+          <Route path="/LogIn" Component={Login} />
           <Route path="/Signup" Component={Signup} />
           <Route path="/Forgot" Component={ForgotPassword} />
           <Route
