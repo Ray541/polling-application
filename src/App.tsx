@@ -12,6 +12,7 @@ import {
   Feeds,
 } from './pages';
 import ProtectedRoute from './ProtectedRoutes/ProtectedRoutes';
+import AnonymousRoute from './ProtectedRoutes/AnonRoute';
 
 function App() {
   return (
@@ -19,8 +20,24 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/LogIn" Component={Login} />
-          <Route path="/Signup" Component={Signup} />
+          {/* <Route path="/LogIn" Component={Login} />
+          <Route path="/Signup" Component={Signup} /> */}
+          <Route
+            path="/"
+            element={
+              <AnonymousRoute>
+                <Login />
+              </AnonymousRoute>
+            }
+          />
+          <Route
+            path="/Signup"
+            element={
+              <AnonymousRoute>
+                <Signup />
+              </AnonymousRoute>
+            }
+          />
           <Route path="/Forgot" Component={ForgotPassword} />
           <Route
             path="/Dashboard"
@@ -62,7 +79,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/*" Component={Login} />
+          <Route path="/*" Component={Dashboard} />
         </Routes>
       </Router>
     </>

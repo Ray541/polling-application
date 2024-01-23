@@ -7,16 +7,16 @@ interface ProtectedRouteProps {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const session = localStorage.getItem('token');
   const location = useLocation();
-
+  
   if (
-    (location.pathname === '/' || location.pathname === '/Signup') &&
+    (location.pathname === '/' || location.pathname === '/SignUp') &&
     session
   ) {
-    // If the user is trying to access these pages and they are already logged in, redirect them to the dashboard
-    return <Navigate to="/Dashboard" />;
+    return <Navigate to="/Dashboard" state={{ from: location }} />;
   }
+
   if (!session) {
-    return <Navigate to="/LogIn" state={{ from: location }} />;
+    return <Navigate to="/" state={{ from: location }} />;
   } else {
     return <>{children}</>;
   }
