@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Formik, Field, Form, ErrorMessage, FieldArray } from 'formik';
 import * as Yup from 'yup';
@@ -14,11 +14,13 @@ import {
   CloseModal,
 } from './CreatePoll.styled';
 import { supabase } from '../../supabase/supabaseClient';
+import Snackbar from '../../components/Snackbar/Snackbar';
 
 interface PollFormState {
   question: string;
   options: string[];
   onClose: () => void;
+  onNewPoll: () => void;
 }
 
 /**Validation Schema
@@ -31,56 +33,8 @@ const validationSchema = Yup.object().shape({
   dynamicFields: Yup.array().of(Yup.string().required('Required')),
 });
 
-const CreatePoll: React.FC<PollFormState> = ({ onClose }) => {
-  // const createPollWithOptions = async (
-  //   userId,
-  //   question,
-  //   options,
-  //   startTime,
-  //   endTime,
-  // ) => {
-  //   const pollData = {
-  //     creator_id: userId,
-  //     question: question,
-  //     start_time: startTime,
-  //     end_time: endTime,
-  //   };
-
-  //   let pollId;
-
-  //   // Start a transaction
-  //   await supabase
-  //     .from('polls')
-  //     .insert([pollData])
-  //     .then((prop) => {
-  //       console.log(prop);
-
-  //       // if (error) throw error;
-
-  //       // console.log("Poll -",data);
-
-  //       // if (data && data.length > 0) {
-  //       //   pollId = data[0].poll_id; // Get the ID of the newly created poll
-  //       //   const optionsData = options.map((option) => ({
-  //       //     poll_id: pollId,
-  //       //     option_text: option,
-  //       //   }));
-
-  //       //   console.log("Options -",data);
-  //       //   // Insert options for this poll
-  //       //   return supabase.from('options').insert(optionsData);
-  //       // }
-  //     })
-  //     .then(({ error }) => {
-  //       if (error) throw error;
-  //     })
-  //     .catch((error) => {
-  //       console.error('Transaction error:', error);
-  //       // Handle error, possibly rolling back the transaction
-  //     });
-
-  //   return { pollId };
-  // };
+const CreatePoll: React.FC<PollFormState> = ({ onClose, onNewPoll }) => {
+  const [showSnackbar, setShowSnackbar] = useState(false);
 
   return (
     <>
@@ -150,6 +104,8 @@ const CreatePoll: React.FC<PollFormState> = ({ onClose }) => {
                   }));
 
                   await supabase.from('options').insert(options);
+                  setShowSnackbar(true);
+                  onNewPoll();
                 } else {
                   alert(error);
                 }
@@ -246,6 +202,7 @@ const CreatePoll: React.FC<PollFormState> = ({ onClose }) => {
             </Formik>
           </StyledModalBody>
         </StyledModal>
+        {showSnackbar && <Snackbar message="Poll Created!" />}
       </StyledModalWrapper>
     </>
   );

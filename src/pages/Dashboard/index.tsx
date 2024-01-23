@@ -19,6 +19,7 @@ interface Poll {
 
 const Dashboard = () => {
   const [showCreatePoll, setShowCreatePoll] = useState(false);
+  const [refetchTrigger, setRefetchTrigger] = useState(false);
   const [searchPoll, setSearchPoll] = useState('');
 
   const openCreatePoll = () => {
@@ -51,7 +52,7 @@ const Dashboard = () => {
     };
 
     fetchPolls();
-  }, []);
+  }, [refetchTrigger]);
 
   /**@returns Displayes Filtered Poll on the basis of Poll Question */
   const filteredPolls = pollData.filter((poll) =>
@@ -95,6 +96,7 @@ const Dashboard = () => {
               question=""
               options={['', '']}
               onClose={closeCreatePoll}
+              onNewPoll={() => setRefetchTrigger((prev) => !prev)}
             />
           )}
         </div>
