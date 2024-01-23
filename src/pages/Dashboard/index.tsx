@@ -19,6 +19,7 @@ interface Poll {
 
 const Dashboard = () => {
   const [showCreatePoll, setShowCreatePoll] = useState(false);
+  const [searchPoll, setSearchPoll] = useState('');
 
   const openCreatePoll = () => {
     setShowCreatePoll(true);
@@ -52,13 +53,42 @@ const Dashboard = () => {
     fetchPolls();
   }, []);
 
+  /**@returns Displayes Filtered Poll on the basis of Poll Question */
+  const filteredPolls = pollData.filter((poll) =>
+    poll.question.toLowerCase().includes(searchPoll.toLowerCase()),
+  );
+
   return (
     <>
       <header className="bg-white shadow h-full">
-        <div className="mx-auto max-w-7xl flex items-center justify-between px-4 py-3.5 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl flex items-center justify-between m px-4 py-3.5 sm:px-6 lg:px-8 sm: flex-wrap">
           <h1 className="text-3xl font-bold tracking-tight text-gray-900">
             Dashboard
           </h1>
+          <div className="flex" style={{ position: 'relative' }}>
+            <input
+              className="w-full outline-none border py-1 px-2 rounded-md text-sm"
+              type="text"
+              placeholder="Search Poll..."
+              value={searchPoll}
+              onChange={(e) => setSearchPoll(e.target.value)}
+            />
+            <svg
+              style={{ position: 'absolute', right: 10 }}
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="0.5"
+              stroke="currentColor"
+              className="w-5 h-7"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+              />
+            </svg>
+          </div>
           <Button label="Create Poll" onClick={openCreatePoll} />
           {showCreatePoll && (
             <CreatePoll
@@ -74,7 +104,7 @@ const Dashboard = () => {
           Polls You Created
         </h1>
         <StyledPollList className="mx-auto max-w-7xl py-6 px-1 sm:px-6 lg:px-8">
-          {pollData.map((poll, index) => (
+          {filteredPolls.map((poll, index) => (
             <PollCard key={index} data={[poll]} />
           ))}
         </StyledPollList>

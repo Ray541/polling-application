@@ -11,7 +11,6 @@ import {
   Profile,
   Feeds,
 } from './pages';
-// import Footer from './components/Footer/Footer';
 import ProtectedRoute from './ProtectedRoutes/ProtectedRoutes';
 
 function App() {
@@ -65,7 +64,6 @@ function App() {
           />
           <Route path="/*" Component={Login} />
         </Routes>
-        {/* <Footer /> */}
       </Router>
     </>
   );

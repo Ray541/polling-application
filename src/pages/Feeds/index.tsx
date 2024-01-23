@@ -16,8 +16,8 @@ interface Poll {
 }
 
 const Feeds = () => {
-
   const [pollData, setPollData] = useState<Poll[]>([]);
+  const [searchPoll, setSearchPoll] = useState('');
   // const [trigger, setTrigger] = useState(false);
 
   useEffect(() => {
@@ -43,6 +43,11 @@ const Feeds = () => {
     fetchPolls();
   }, []);
 
+  /**@returns Displayes Filtered Poll on the basis of Poll Question */
+  const filteredPolls = pollData.filter((poll) =>
+    poll.question.toLowerCase().includes(searchPoll.toLowerCase()),
+  );
+
   return (
     <>
       <header className="bg-white shadow-sm h-full">
@@ -50,6 +55,30 @@ const Feeds = () => {
           <h1 className="text-3xl font-bold tracking-tight text-gray-900">
             Feeds
           </h1>
+          <div className="flex" style={{ position: 'relative' }}>
+            <input
+              className="w-full outline-none border py-1 px-2 rounded-md text-sm"
+              type="text"
+              placeholder="Search Poll..."
+              value={searchPoll}
+              onChange={(e) => setSearchPoll(e.target.value)}
+            />
+            <svg
+              style={{ position: 'absolute', right: 10 }}
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="0.5"
+              stroke="currentColor"
+              className="w-5 h-7"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+              />
+            </svg>
+          </div>
         </div>
       </header>
       <main className="mx-auto max-w-7xl py-6">
@@ -57,7 +86,7 @@ const Feeds = () => {
           Polls Others Created
         </h1>
         <StyledPollList className="mx-auto max-w-7xl py-6 px-1 sm:px-6 lg:px-8">
-          {pollData.map((poll, index) => (
+          {filteredPolls.map((poll, index) => (
             <PollCard key={index} data={[poll]} />
           ))}
         </StyledPollList>
