@@ -14,5 +14,15 @@ export const StyledPollList = styled.section`
       width: 100%;
       overflow-x: auto;
     }
-   }
+  }
+`;
+
+export const Searchbar = styled.input`
+  padding: 5px 10px;
+  font-size: 15px;
+  letter-spacing: 1.3px;
+  font-weight: 500;
+  border: 2px solid #4B5563;
+  outline: unset;
+  color: #4B5563;
 `;

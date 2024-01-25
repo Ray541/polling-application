@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyledPollList } from './Feeds.styled';
+import { StyledPollList, Searchbar } from './Feeds.styled';
 import { supabase } from '../../supabase/supabaseClient';
 import PollCard from '../../components/PollCard';
 
@@ -56,15 +56,15 @@ const Feeds = () => {
             Feeds
           </h1>
           <div className="flex" style={{ position: 'relative' }}>
-            <input
-              className="w-full outline-none border py-1 px-2 rounded-md text-sm"
+            <Searchbar
+              className="rounded-md"
               type="text"
               placeholder="Search Poll..."
               value={searchPoll}
               onChange={(e) => setSearchPoll(e.target.value)}
             />
             <svg
-              style={{ position: 'absolute', right: 10 }}
+              style={{ position: 'absolute', top: 2, right: 5, zIndex: 555555, backgroundColor: "white" }}
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -85,7 +85,7 @@ const Feeds = () => {
         <h1 className="w-full text-center text-2xl tracking-tight">
           Polls Others Created
         </h1>
-        <StyledPollList className="mx-auto max-w-7xl py-6 px-1 sm:px-6 lg:px-8">
+        <StyledPollList className="mx-auto max-w-5xl py-6 px-1 sm:px-6 lg:px-8">
           {filteredPolls.map((poll, index) => (
             <PollCard key={index} data={[poll]} />
           ))}

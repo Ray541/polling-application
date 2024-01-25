@@ -3,7 +3,7 @@ import Button from '../../components/Button/Button';
 import CreatePoll from '../CreatePoll';
 import PollCard from '../../components/PollCard';
 import { supabase } from '../../supabase/supabaseClient';
-import { StyledPollList } from './Dashboard.style';
+import { StyledPollList, Searchbar } from './Dashboard.style';
 
 interface Poll {
   poll_id: string;
@@ -67,21 +67,21 @@ const Dashboard = () => {
             Dashboard
           </h1>
           <div className="flex" style={{ position: 'relative' }}>
-            <input
-              className="w-full outline-none border py-1 px-2 rounded-md text-sm"
+            <Searchbar
+              className="rounded-md"
               type="text"
               placeholder="Search Poll..."
               value={searchPoll}
               onChange={(e) => setSearchPoll(e.target.value)}
             />
             <svg
-              style={{ position: 'absolute', right: 10 }}
+              style={{ position: 'absolute', top: 2, right: 5, zIndex: 555555, backgroundColor: "white" }}
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth="0.5"
               stroke="currentColor"
-              className="w-5 h-7"
+              className="w-5 h-8"
             >
               <path
                 strokeLinecap="round"
@@ -101,7 +101,7 @@ const Dashboard = () => {
           )}
         </div>
       </header>
-      <main className="mx-auto max-w-7xl py-6">
+      <main className="mx-auto max-w-5xl py-6">
         <h1 className="w-full text-center text-2xl tracking-tight">
           Polls You Created
         </h1>
