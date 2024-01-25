@@ -35,6 +35,7 @@ const validationSchema = Yup.object().shape({
 
 const CreatePoll: React.FC<PollFormState> = ({ onClose, onNewPoll }) => {
   const [showSnackbar, setShowSnackbar] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   return (
     <>
@@ -65,6 +66,7 @@ const CreatePoll: React.FC<PollFormState> = ({ onClose, onNewPoll }) => {
               initialValues={{ question: '', dynamicFields: ['', ''] }}
               validationSchema={validationSchema}
               onSubmit={async (values, { resetForm }) => {
+                setIsSubmitting(true);
                 const { data: sessionData, error: sessionError } =
                   await supabase.auth.getSession();
                 if (sessionError || !sessionData?.session?.user?.id) return;
@@ -106,6 +108,7 @@ const CreatePoll: React.FC<PollFormState> = ({ onClose, onNewPoll }) => {
                   await supabase.from('options').insert(options);
                   setShowSnackbar(true);
                   onNewPoll();
+                  setIsSubmitting(false);
                 } else {
                   alert(error);
                 }
@@ -196,7 +199,9 @@ const CreatePoll: React.FC<PollFormState> = ({ onClose, onNewPoll }) => {
                       </div>
                     )}
                   </FieldArray>
-                  <StyledFormButton type="submit">Create Poll</StyledFormButton>
+                  <StyledFormButton type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? 'Creating Poll...' : 'Create Poll'}
+                  </StyledFormButton>
                 </PollCreationForm>
               )}
             </Formik>
