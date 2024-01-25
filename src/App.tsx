@@ -18,10 +18,16 @@ function App() {
   return (
     <>
       <Router>
-        <Navbar />
+        {/* <Navbar /> */}
         <Routes>
-          {/* <Route path="/LogIn" Component={Login} />
-          <Route path="/Signup" Component={Signup} /> */}
+          <Route
+            path="/*"
+            element={
+              <AnonymousRoute>
+                <Login />
+              </AnonymousRoute>
+            }
+          />
           <Route
             path="/"
             element={
@@ -43,6 +49,7 @@ function App() {
             path="/Dashboard"
             element={
               <ProtectedRoute>
+                <Navbar />
                 <Dashboard />
               </ProtectedRoute>
             }
@@ -51,6 +58,7 @@ function App() {
             path="/Voting/:pollId"
             element={
               <ProtectedRoute>
+                <Navbar />
                 <Voting />
               </ProtectedRoute>
             }
@@ -59,6 +67,7 @@ function App() {
             path="/PollResult/:pollId"
             element={
               <ProtectedRoute>
+                <Navbar />
                 <PollResult />
               </ProtectedRoute>
             }
@@ -67,6 +76,7 @@ function App() {
             path="/Feeds"
             element={
               <ProtectedRoute>
+                <Navbar />
                 <Feeds />
               </ProtectedRoute>
             }
@@ -75,7 +85,17 @@ function App() {
             path="/Profile"
             element={
               <ProtectedRoute>
+                <Navbar />
                 <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/*"
+            element={
+              <ProtectedRoute>
+                <Navbar />
+                <Dashboard />
               </ProtectedRoute>
             }
           />
