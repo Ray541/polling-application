@@ -88,8 +88,6 @@ const Poll = () => {
             .eq('voter_id', window.logedUser)
             .eq('poll_id', pollId);
 
-          console.log(data);
-
           if (data != null && data.length != 0) {
             Cookies.set(userVotingStatus, 'true');
             setFinalVoted(`true`);

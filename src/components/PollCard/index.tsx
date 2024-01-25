@@ -30,12 +30,10 @@ const PollCard: React.FC<CardProps> = ({ data }) => {
   const navigate = useNavigate();
 
   const handleClickedVote = (poll: any) => {
-    console.log('Clicked Vote');
     navigate(`/Voting/${poll.poll_id}`);
   };
 
   const handleClickedViewResult = (poll: any) => {
-    console.log('Clicked view Result');
     navigate(`/PollResult/${poll.poll_id}`);
   };
 
