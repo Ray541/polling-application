@@ -3,6 +3,7 @@ import { StyledButton } from './Button.styled';
 
 const noop = () => {};
 interface ButtonProps {
+    style?: {};
     label: string;
     onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
     disabled?: boolean;
