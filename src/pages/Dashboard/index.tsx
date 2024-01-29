@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Button from '../../components/Button/Button';
+import SearchBar from '../../components/SearchInput/SearchInput';
 import CreatePoll from '../CreatePoll';
 import PollCard from '../../components/PollCard';
 import { supabase } from '../../supabase/supabaseClient';
-import { StyledPollList, Searchbar } from './Dashboard.style';
+import { StyledPollList } from './Dashboard.style';
 
 interface Poll {
   poll_id: string;
@@ -62,20 +63,24 @@ const Dashboard = () => {
   return (
     <>
       <header className="bg-white shadow h-full">
-        <div className="mx-auto max-w-7xl flex items-center justify-between m px-4 py-3.5 sm:px-6 lg:px-8 sm: flex-wrap">
+        <div className="mx-auto max-w-7xl flex items-center justify-between gap-2.5 px-4 py-3.5 sm:px-6 lg:px-8 sm: flex-wrap">
           <h1 className="text-3xl font-bold tracking-tight text-gray-900">
             Dashboard
           </h1>
           <div className="flex" style={{ position: 'relative' }}>
-            <Searchbar
-              className="rounded-md"
-              type="text"
-              placeholder="Search Poll..."
-              value={searchPoll}
+            <SearchBar
+              type={'text'}
+              placeholder={'Search Poll...'}
               onChange={(e) => setSearchPoll(e.target.value)}
             />
             <svg
-              style={{ position: 'absolute', top: 2, right: 5, zIndex: 555555, backgroundColor: "white" }}
+              style={{
+                position: 'absolute',
+                top: 2,
+                right: 5,
+                zIndex: 1,
+                backgroundColor: 'white',
+              }}
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"

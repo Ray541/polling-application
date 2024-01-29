@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { StyledPollList, Searchbar } from './Feeds.styled';
+import { StyledPollList } from './Feeds.styled';
 import { supabase } from '../../supabase/supabaseClient';
 import PollCard from '../../components/PollCard';
+import SearchBar from '../../components/SearchInput/SearchInput';
 
 interface Poll {
   poll_id: string;
@@ -56,15 +57,19 @@ const Feeds = () => {
             Feeds
           </h1>
           <div className="flex" style={{ position: 'relative' }}>
-            <Searchbar
-              className="rounded-md"
-              type="text"
-              placeholder="Search Poll..."
-              value={searchPoll}
+            <SearchBar
+              type={'text'}
+              placeholder={'Search Poll...'}
               onChange={(e) => setSearchPoll(e.target.value)}
             />
             <svg
-              style={{ position: 'absolute', top: 2, right: 5, zIndex: 555555, backgroundColor: "white" }}
+              style={{
+                position: 'absolute',
+                top: 2,
+                right: 5,
+                zIndex: 1,
+                backgroundColor: 'white',
+              }}
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
